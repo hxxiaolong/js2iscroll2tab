@@ -186,6 +186,51 @@
 
 
                 dmkdkd
+
+                dnjdn
+
+
+
+                dmkd
+
+
+
+                dkdnkd
+
+
+
+
+                dmkdkd
+
+                dnjdn
+
+
+
+                dmkd
+
+
+
+                dkdnkd
+
+
+
+
+                dmkdkd
+
+                dnjdn
+
+
+
+                dmkd
+
+
+
+                dkdnkd
+
+
+
+
+                dmkdkd
             </pre>
                 </div>
             </div>
@@ -210,51 +255,64 @@
             this.standy = this.y;
             // scrollTop 为负数
             this.maxy = this.maxScrollY
-        })
 
-        myScroll.on("scrollEnd", function () {
-            if (this.standy > 0) {
-                //下拉-> 滚动位置大于0
-                console.log("tab1下拉")
-            } else if (this.standy < this.maxy) {
+            if (this.standy - this.maxy < -120) {
                 //上滑加载 -> 等于的时候是触底  滚动条越往下就会越小于最大的y
-                console.log("tab1上滑")
+//                console.log("tab1上滑")
                 tab2Click()
             }
         })
+
+        // 上拉刷新和下拉加载用这个
+//        myScroll.on("scrollEnd", function () {
+//            if (this.standy > 100) {
+//                //下拉-> 滚动位置大于0
+//                console.log("tab1下拉")
+//            } else if (this.standy1 -this.maxy1 < -100) {
+//                //上滑加载 -> 等于的时候是触底  滚动条越往下就会越小于最大的y
+//                console.log("tab1上滑")
+//                tab2Click()
+//            }
+//        })
 
         myScroll1.on("scroll", function () {
             // 当前滚动条的y坐标 滚动为负数 初始化不滚动为0
             this.standy1 = this.y;
             // scrollTop 为负数
             this.maxy1 = this.maxScrollY
-        })
 
-        myScroll1.on("scrollEnd", function () {
-            if (this.standy1 > 0) {
-                //下拉-> 滚动位置大于0
-                console.log("tab2下拉")
+            if (this.standy1 > 100) {
+                //下拉-> 滚动位置大于0 但也不能一判定下拉就加载，需要有缓冲
+//                console.log("tab2下拉")
                 tab1Click();
-            } else if (this.standy1 < this.maxy1) {
-                //上滑加载 -> 等于的时候是触底  滚动条越往下就会越小于最大的y
-                console.log("tab2上滑");
             }
         })
 
-        $(".first")[0].onclick =tab1Click;
+//        myScroll1.on("scrollEnd", function () {
+//            if (this.standy > 100) {
+//                //下拉-> 滚动位置大于0 但也不能一判定下拉就加载，需要有缓冲
+//                console.log("tab2下拉")
+//                tab1Click();
+//            } else if (this.standy1 - this.maxy1 < -100) {
+//                //上滑加载 -> 等于的时候是触底  滚动条越往下就会越小于最大的y
+//                console.log("tab2上滑");
+//            }
+//        })
+
+        $(".first")[0].onclick = tab1Click;
 
         $(".two")[0].onclick = tab2Click;
 
         //tab1 被单击
         function tab1Click() {
             $(".floatt")[0].style.transform = "translate3d(0px,0,0)"
-            console.log("one click")
+//            console.log("one click")
             $(".wrapcenter")[0].style.transform = "translate3d(0,0,0)"
         }
 
         //tab2被单击
         function tab2Click() {
-            console.log("two click")
+//            console.log("two click")
             $(".floatt")[0].style.transform = "translate3d(100px,0,0)"
             $(".wrapcenter")[0].style.transform = "translate3d(-100vw,0,0)"
         }
