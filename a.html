@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./iscroll-probe.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .title {
+            width: 100vw;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 30px;
+            z-index: 9999;
+        }
+
+        .floatt {
+            border-top: 4px solid #000;
+            position: absolute;
+            width: 100px;
+            transition: all .6s;
+            z-index: 999;
+        }
+
+        .wrapcontent {
+            width: 100vw;
+            overflow: hidden;
+            margin-top: 30px;
+            height: calc(100vh - 30px);
+        }
+
+        .wrapcenter {
+            width: 200vw;
+            transition: .8s all;
+            /*position: absolute;*/
+        }
+
+        .wrapper {
+            height: calc(100vh - 30px);
+            width: 100vw;
+            float: left;
+        }
+
+        #wrapper {
+            background-color: yellow;
+        }
+
+        #wrapper1 {
+            background-color: yellowgreen;
+        }
+
+    </style>
+</head>
+<body>
+<div class="title">
+    <div class="first">
+        第一个模块
+        <div class="floatt"></div>
+    </div>
+    <div class="two" style="margin-left: 20px">第二个模块</div>
+</div>
+<div class="wrapcontent">
+    <div class="wrapcenter">
+        <div class="wrapper" id="wrapper">
+            <div>
+                <div>
+                <pre class="left">
+                `           dkkdnd
+
+                dmlkdmd
+                dmn dmn d
+
+
+                dmlmdd
+
+
+
+                dmld
+
+
+
+                d,ldmldkldmdl
+
+
+
+                dkdkd
+
+
+
+                dmkdkd
+
+
+
+                dkdnkd
+                dn jdnd
+
+
+
+                djd
+                dnkdnk
+
+
+
+                dmkdm
+
+
+
+                mdkdnmd
+
+                dnjdn
+
+
+
+                dmkd
+
+
+
+                dkdnkd
+
+
+
+
+                dmkdkd
+
+            </pre>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper" id="wrapper1">
+            <div>
+                <div>
+                    <pre class="right">
+                d,ldmldkldmdl
+
+
+
+                dkdkd
+
+
+
+                dmkdkd
+
+
+
+                dkdnkd
+                dn jdnd
+
+
+
+                djd
+                dnkdnk
+
+
+
+                dmkdm
+
+
+
+                mdkdnmd
+
+                dnjdn
+
+
+
+                dmkd
+
+
+
+                dkdnkd
+
+
+
+
+                dmkdkd
+            </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // scroll必须是三层且最外层的wrapper必须有一个固定高度
+    // 上滑和下拉的判定：利用监听滚动条的scroll事件，判断下拉或者上拉的距离，做上触发距离标记，当scrollEnd事件触发时，执行数据加载
+    $(function () {
+        var myScroll = new IScroll("#wrapper", {
+            probeType: 3
+        });
+
+        var myScroll1 = new IScroll("#wrapper1", {
+            probeType: 3
+        });
+
+        myScroll.on("scroll", function () {
+            // 当前滚动条的y坐标 滚动为负数 初始化不滚动为0
+            this.standy = this.y;
+            // scrollTop 为负数
+            this.maxy = this.maxScrollY
+        })
+
+        myScroll.on("scrollEnd", function () {
+            if (this.standy > 0) {
+                //下拉-> 滚动位置大于0
+                console.log("tab1下拉")
+            } else if (this.standy < this.maxy) {
+                //上滑加载 -> 等于的时候是触底  滚动条越往下就会越小于最大的y
+                console.log("tab1上滑")
+                tab2Click()
+            }
+        })
+
+        myScroll1.on("scroll", function () {
+            // 当前滚动条的y坐标 滚动为负数 初始化不滚动为0
+            this.standy1 = this.y;
+            // scrollTop 为负数
+            this.maxy1 = this.maxScrollY
+        })
+
+        myScroll1.on("scrollEnd", function () {
+            if (this.standy1 > 0) {
+                //下拉-> 滚动位置大于0
+                console.log("tab2下拉")
+                tab1Click();
+            } else if (this.standy1 < this.maxy1) {
+                //上滑加载 -> 等于的时候是触底  滚动条越往下就会越小于最大的y
+                console.log("tab2上滑");
+            }
+        })
+
+        $(".first")[0].onclick =tab1Click;
+
+        $(".two")[0].onclick = tab2Click;
+
+        //tab1 被单击
+        function tab1Click() {
+            $(".floatt")[0].style.transform = "translate3d(0px,0,0)"
+            console.log("one click")
+            $(".wrapcenter")[0].style.transform = "translate3d(0,0,0)"
+        }
+
+        //tab2被单击
+        function tab2Click() {
+            console.log("two click")
+            $(".floatt")[0].style.transform = "translate3d(100px,0,0)"
+            $(".wrapcenter")[0].style.transform = "translate3d(-100vw,0,0)"
+        }
+    })
+</script>
+</html>
